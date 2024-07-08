@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Calculator</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .logo {
+            width: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .results, .error {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <h1>Hilldare Property Calculator</h1>
+        <form method="POST">
+            <label for="listed_price">Property Listed Price (R):</label>
+            <input type="number" id="listed_price" name="listed_price" step="0.01" required>
+            <label for="sold_price">Property Sold Price (R):</label>
+            <input type="number" id="sold_price" name="sold_price" step="0.01" required>
+            <button type="submit">Calculate</button>
+        </form>
+        {% if commission is defined %}
+            <div class="results">
+                <p>Listed Price: R{{ listed_price }}</p>
+                <p>Sold Price: R{{ sold_price }}</p>
+                <p>Commission: R{{ commission }}</p>
+                <p>VAT: R{{ vat }}</p>
+                <p>Net Commission: R{{ net_commission }}</p>
+                <p>Agent's Share: R{{ agent_share }}</p>
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
